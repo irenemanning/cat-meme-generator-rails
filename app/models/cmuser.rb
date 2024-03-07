@@ -1,0 +1,2 @@
+class Cmuser < ApplicationRecord
+end
