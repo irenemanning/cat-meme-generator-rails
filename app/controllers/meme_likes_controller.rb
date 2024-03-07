@@ -1,0 +1,2 @@
+class MemeLikesController < ApplicationController
+end

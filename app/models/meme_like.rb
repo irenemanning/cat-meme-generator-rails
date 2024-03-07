@@ -1,0 +1,2 @@
+class MemeLike < ApplicationRecord
+end
