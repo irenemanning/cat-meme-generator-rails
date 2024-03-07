@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: cat_meme_generator_rails_production
-  username: cat_meme_generator_rails
-  password: <%= ENV["CAT_MEME_GENERATOR_RAILS_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
