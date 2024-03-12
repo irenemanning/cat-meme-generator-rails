@@ -8,14 +8,14 @@ function Navbar() {
   const [user, setUser]=useState(null)
 
   const links = user ? [
-    { title: "Home", path: "/" },
+    // { title: "Home", path: "/" },
     { title: "Memes", path: "/memes" },
     { title: "+ Meme", path: "/+meme" },
     { title: "Profile", path: "/profile" },
     { title: "Log Out", path: "/logout" }
   ] : [
     { title: "Sign Up", path: "/signup" },
-    { title: "Log In", path: "/login" }
+    { title: "Log In", path: "/" }
   ]
 
   return (
