@@ -5,14 +5,14 @@ import Link from 'next/link'
 function Navbar() {
   const [nav, setNav] = useState(false)
 
-  const [user, setUser]=useState(null)
+  const [user, setUser]=useState({})
 
   const links = user ? [
     // { title: "Home", path: "/" },
     { title: "Memes", path: "/memes" },
     { title: "+ Meme", path: "/+meme" },
     { title: "Profile", path: "/profile" },
-    { title: "Log Out", path: "/logout" }
+    { title: "Log Out", path: "/" }
   ] : [
     { title: "Sign Up", path: "/signup" },
     { title: "Log In", path: "/" }
