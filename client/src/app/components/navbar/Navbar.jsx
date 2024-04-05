@@ -1,13 +1,14 @@
 "use client"
 import { useState } from 'react'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 function Navbar() {
   const [nav, setNav] = useState(false)
 
-  const [user, setUser]=useState({})
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
-  const links = user ? [
+  const links = isAuthenticated ? [
     // { title: "Home", path: "/" },
     { title: "Memes", path: "/memes" },
     { title: "+ Meme", path: "/+meme" },
@@ -15,7 +16,7 @@ function Navbar() {
     { title: "Log Out", path: "/" }
   ] : [
     { title: "Sign Up", path: "/signup" },
-    { title: "Log In", path: "/" }
+    { title: "Log In", path: "/login" }
   ]
 
   return (

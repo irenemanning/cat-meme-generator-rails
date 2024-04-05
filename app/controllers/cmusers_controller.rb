@@ -1,4 +1,5 @@
 class CmusersController < ApplicationController
+    skip_before_action :authorize, only: [:create]
     #  /me
     def show
         render json: @current_user
@@ -6,19 +7,19 @@ class CmusersController < ApplicationController
 
     # /signup
     def create
-        user = Cmuser.create(user_params)
-        if user.valid?
-            session[:user_id] = user.id
-            render json: user, status: :created
+        cmuser = Cmuser.create(user_params)
+        if cmuser.valid?
+          session[:cmuser_id] = cmuser.id
+          render json: cmuser, status: :created
         else
-            render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+          render json: { errors: cmuser.errors.full_messages }, status: :unprocessable_entity
         end
     end
 
     private
 
     def user_params
-        params.require(:wuser).permit(:username, :password, :password_confirmation, :profile_image)
+        params.require(:cmuser).permit(:username, :password, :password_confirmation, :profile_image)
     end
 
 end
