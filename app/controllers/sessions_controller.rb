@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     def create
       user = Cmuser.find_by(username: params[:cmuser][:username])
       if user&.authenticate(params[:cmuser][:password])
-        session[:cmuser_id] = user.id
+        session[:user_id] = user.id
         render json: user, status: :created
       else
         render json: { errors: ["Invalid username or password"] }, status: :unauthorized

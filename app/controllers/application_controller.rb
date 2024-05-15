@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
     private
   
     def authorize
-      @current_user = Cmuser.find_by(id: session[:cmuser_id])
+      @current_user = Cmuser.find_by(id: session[:user_id])
       render json: { errors: ["Not authorized"] }, status: :unauthorized unless @current_user
     end
   

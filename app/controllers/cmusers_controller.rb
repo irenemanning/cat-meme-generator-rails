@@ -9,7 +9,7 @@ class CmusersController < ApplicationController
     def create
         cmuser = Cmuser.create(user_params)
         if cmuser.valid?
-          session[:cmuser_id] = cmuser.id
+          session[:user_id] = cmuser.id
           render json: cmuser, status: :created
         else
           render json: { errors: cmuser.errors.full_messages }, status: :unprocessable_entity
