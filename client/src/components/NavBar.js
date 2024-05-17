@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-function Navbar() {
+function Navbar({ isAuthenticated }) {
   const [navOpen, setNavOpen] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
 
   const links = isAuthenticated ? [
     { title: "Memes", path: "/memes" },

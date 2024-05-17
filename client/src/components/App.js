@@ -1,4 +1,7 @@
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUser } from '../Redux/authSlice'
 import '../App.css'
 import Navbar from './NavBar'
 import Home from './pages/Home'
@@ -8,12 +11,25 @@ import Profile from './pages/Profile'
 import SignUp from './pages/SignUp'
 import Login from './pages/Login'
 function App() {
-  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
-  const isAuthenticated = true
+  const dispatch = useDispatch()
+  // const user = useSelector((state) => state.auth.user)
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+  const isLoading = useSelector((state) => state.auth.isLoading)
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchUser())
+    }
+    fetchData()
+  }, [dispatch, isAuthenticated])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        <Navbar isAuthenticated={isAuthenticated} />
         <Routes>
           <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
           <Route path="/signup" element={isAuthenticated ? <Navigate to="/" /> : <SignUp />} />
