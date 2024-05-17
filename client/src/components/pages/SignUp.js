@@ -30,7 +30,7 @@ function SignUp() {
   }
 
   return (
-    <div>
+    <div className='pt-24'>
       <h1 className='pt-24'>Sign Up</h1>
       <ReusableForm 
       fields={fields} 
