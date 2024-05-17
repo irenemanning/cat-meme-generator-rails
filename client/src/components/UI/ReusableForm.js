@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 function ReusableForm({ fields, initialValues, onSubmit, submitBtnText, errors, cancel }) {
     const [formValues, setFormValues] = useState(initialValues)
@@ -16,7 +16,7 @@ function ReusableForm({ fields, initialValues, onSubmit, submitBtnText, errors, 
     return (
         <form onSubmit={handleSubmit} className='reusable-form'>
             {fields.map((field) => (
-                <div key={field.label} className='mb-4'>
+                <div key={field.label} className='mb-4 '>
                 <label htmlFor={field.name} className='block text-sm font-medium text-gray-700'>
                     {field.label}
                 </label>
