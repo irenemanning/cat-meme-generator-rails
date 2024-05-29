@@ -27,7 +27,7 @@ function ReusableForm({ fields, initialValues, onSubmit, submitBtnText, errors, 
                     value={formValues[field.name]}
                     onChange={handleChange}
                     placeholder={field.placeholder}
-                    className='mt-1 p-2 border rounded-md w-full'
+                    className='mt-1 p-2 border rounded-md w-full text-black'
                 />
                 </div>
             ))}
