@@ -52,7 +52,7 @@ function CreateMeme() {
             id="file"
             name="file"
             onChange={handleFileChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full p-2 border border-gray-300 rounded-md text-gray-900"
           />
         </div>
         <div className="mb-4">
