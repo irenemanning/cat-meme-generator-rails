@@ -1,9 +1,16 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { createMeme } from '../../Redux/memesSlice'
 
 function CreateMeme() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const errors = useSelector((state) => state.memes.errors)
+
   const [formData, setFormData] = useState({
-    caption_1: '',
-    caption_2: '',
+    caption_one: '',
+    caption_two: '',
     file: null,
     preview: ''
   })
@@ -33,12 +40,25 @@ function CreateMeme() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle form submission logic here
-    console.log(formData)
+    const data = {
+      caption_one: formData.caption_one,
+      caption_two: formData.caption_two,
+      file: formData.file
+    }
+    try {
+      const result = await dispatch(createMeme(data))
+      if (result.payload && (!result.payload.errors || result.payload.errors.length === 0)) {
+        navigate('/memes')
+      } else {
+        console.error("Error creating meme:", result.payload ? result.payload.errors : "Payload is undefined")
+      }
+    } catch (error) {
+      console.error('Error creating meme:', error)
+    }
   }
- 
+
   return (
     <div className="min-h-screen flex items-center justify-center pt-24">
       <form 
@@ -56,23 +76,23 @@ function CreateMeme() {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="caption_1" className="block text-gray-700 font-bold mb-2">Caption 1:</label>
+          <label htmlFor="caption_one" className="block text-gray-700 font-bold mb-2">Caption 1:</label>
           <input
             type="text"
-            id="caption_1"
-            name="caption_1"
-            value={formData.caption_1}
+            id="caption_one"
+            name="caption_one"
+            value={formData.caption_one}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md text-black"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="caption_2" className="block text-gray-700 font-bold mb-2">Caption 2:</label>
+          <label htmlFor="caption_two" className="block text-gray-700 font-bold mb-2">Caption 2:</label>
           <input
             type="text"
-            id="caption_2"
-            name="caption_2"
-            value={formData.caption_2}
+            id="caption_two"
+            name="caption_two"
+            value={formData.caption_two}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md text-black"
           />
@@ -80,13 +100,20 @@ function CreateMeme() {
         
         {formData.preview && (
           <div className="mb-4 text-center">
-            <h2 className="text-xl text-black font-bold mb-2">{formData.caption_1}</h2>
+            <h2 className="text-xl text-black font-bold mb-2">{formData.caption_one}</h2>
             <img 
               src={formData.preview} 
               alt="Preview" 
               className="max-w-full h-auto rounded-md"
             />
-            <h2 className="text-xl text-black font-bold mt-2">{formData.caption_2}</h2>
+            <h2 className="text-xl text-black font-bold mt-2">{formData.caption_two}</h2>
+          </div>
+        )}
+        {errors.length > 0 && (
+          <div className='text-red-500'>
+            {errors.map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
           </div>
         )}
         <button 
@@ -95,7 +122,7 @@ function CreateMeme() {
           style={{ backgroundColor: 'rgb(255, 92, 181)' }}
         >
           Submit
-        </button>
+        </button> 
       </form>
     </div>
   )
