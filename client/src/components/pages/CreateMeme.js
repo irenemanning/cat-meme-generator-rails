@@ -42,11 +42,11 @@ function CreateMeme() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const data = {
-      caption_one: formData.caption_one,
-      caption_two: formData.caption_two,
-      file: formData.file
-    }
+    const data = new FormData()
+    data.append('meme[caption_one]', formData.caption_one)
+    data.append('meme[caption_two]', formData.caption_two)
+    data.append('meme[image]', formData.file)
+
     try {
       const result = await dispatch(createMeme(data))
       if (result.payload && (!result.payload.errors || result.payload.errors.length === 0)) {

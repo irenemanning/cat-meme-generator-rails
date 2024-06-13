@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser } from '../Redux/authSlice'
+import { fetchMemes } from '../Redux/memesSlice'
 import '../App.css'
 import Navbar from './NavBar'
 import Home from './pages/Home'
@@ -19,6 +20,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchUser())
+      await dispatch(fetchMemes())
     }
     fetchData()
   }, [dispatch, isAuthenticated])

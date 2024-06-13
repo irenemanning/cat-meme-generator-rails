@@ -28,10 +28,7 @@ export const createMeme = createAsyncThunk(
     try {
       const response = await fetch('/memes', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        body: data // FormData is handled automatically
       })
       if (!response.ok) {
         const errorData = await response.json()
@@ -49,7 +46,6 @@ export const createMeme = createAsyncThunk(
     }
   }
 )
-
 const memesSlice = createSlice({
   name: 'memes',
   initialState: {
